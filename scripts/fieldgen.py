@@ -1,5 +1,9 @@
 import csv
-
+'''script used to determine field names and field types
+ to define flight model. Takes all headers in csv. 
+ Will need to repoint it at fresh data
+ pasted terminal output to create the flight model class.  
+'''
 
 def isint(str):
 # helper function to check if string can be cast as int
@@ -28,11 +32,11 @@ if __name__=="__main__":
             #print(col)
             fieldname=col[0]
             if isint(col[1]):
-                fieldtype="models.BigIntegerField()"
+                fieldtype="models.BigIntegerField(null=True, blank=True)"
             elif isfloat(col[1]):
-                fieldtype="models.FloatField()"
+                fieldtype="models.FloatField(null=True, blank=True)"
             else:
-                fieldtype="models.CharField(max_length=100)"
+                fieldtype="models.CharField(max_length=100, null=True, blank=True)"
             print(f"{fieldname}={fieldtype}")
 
         '''
