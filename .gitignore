@@ -1,2 +1,3 @@
 .env
-watchurdelay/__pycache__/*
+*/__pycache__/*
+
