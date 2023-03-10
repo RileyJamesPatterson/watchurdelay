@@ -16,13 +16,17 @@ parentdir=os.path.dirname(currentdir)
 print("------------------------")
 sys.path.append(parentdir)
 
-fileName="On_Time_Reporting_Carrier_On_Time_Performance_(1987_present)_2022_9.csv"
+fileName="On_Time_Reporting_Carrier_On_Time_Performance_(1987_present)_2022_9.csv" #point this at data file and figure out how to loop through all files in data
 
 from dashboard import models
 
 file_path=os.path.join(currentdir,fileName)
 sys.path.append(parentdir)
 
+# a list of field headers to be added to the DB. Other Fields will be ignored
+GOODFIELDS=[
+ "Year","Quarter","Month","DayofMonth","DayOfWeek","Origin","OriginCityName","OriginState","OriginStateName","Dest","DestCityName","DestState","DestStateName","CRSDepTime","DepTime","DepDelay","DepDelayMinutes","DepartureDelayGroups","DepTimeBlk","ArrTime","ArrDelay","ArrDelayMinutes","ArrivalDelayGroups","ArrTimeBlk","Cancelled","CancellationCode","Diverted","Flights","Distance","DistanceGroup","CarrierDelay","WeatherDelay","NASDelay","SecurityDelay","LateAircraftDelay",
+]
 
 def run():
     print("Populating Flight table in db with csv data")
@@ -33,9 +37,8 @@ def run():
         
         for row in data:
             #each row becomes a dictionary
-            dic={key:(val if val!="" else None) for key,val in zip(headers,row)}
-             #dictionary unpacked to create a new flight record in db
-            dic.pop("") # to get rid of trailing empty field
+            dic={key:(val if val!="" else None) for key,val in zip(headers,row) if key in GOODFIELDS}
+
             instance=models.Flight(**dic)
             instance.save()
     print("flight table upload complete")    
