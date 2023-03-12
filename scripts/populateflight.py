@@ -10,6 +10,7 @@
 import csv
 import os
 import sys
+from django.db import transaction
 
 currentdir=os.path.dirname(__file__)
 parentdir=os.path.dirname(currentdir)
@@ -34,13 +35,13 @@ def run():
         data=csv.reader(file)
         #take first row as headers
         headers=data.__next__()
-        
-        for row in data:
-            #each row becomes a dictionary
-            dic={key:(val if val!="" else None) for key,val in zip(headers,row) if key in GOODFIELDS}
+        with transaction.atomic():
+            for row in data:
+                #each row becomes a dictionary
+                dic={key:(val if val!="" else None) for key,val in zip(headers,row) if key in GOODFIELDS}
 
-            instance=models.Flight(**dic)
-            instance.save()
+                instance=models.Flight(**dic)
+                instance.save()
     print("flight table upload complete")    
     
 
