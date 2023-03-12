@@ -4,8 +4,6 @@ import csv
  Will need to repoint it at fresh data
  pasted terminal output to create the flight model class.  
 '''
-#import populateflight
-GOODFIELDS=["demo"]
 
 def isint(str):
 # helper function to check if string can be cast as int
@@ -40,12 +38,10 @@ if __name__=="__main__":
             else:
                 fieldtype="models.CharField(max_length=100, null=True, blank=True)"
             print(f"{fieldname}={fieldtype}")
-            print(GOODFIELDS)
 
         '''
         print(demo)
         for field in zip(headers,demo) :
             print (field)
-        print(GOODFIELDS)
         '''
 
