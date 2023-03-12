@@ -1,5 +1,6 @@
 from django.contrib import admin
-from dashboard.models import Flight
+from dashboard.models import Flight,Airport
 
 # Register your models here.
 admin.site.register(Flight)
+admin.site.register(Airport)

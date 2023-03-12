@@ -1,6 +1,15 @@
 from django.db import models
 
 # Create your models here.
+class Airport(models.Model):
+    #icao=models.CharField(max_length=10, null=True, blank=True)
+    iata=models.CharField(max_length=10, null=True, blank=True)
+    name=models.CharField(max_length=50, null=True, blank=True)
+    #city=models.CharField(max_length=50, null=True, blank=True)
+    #subd=models.CharField(max_length=50, null=True, blank=True)
+    lat=models.FloatField(null=True, blank=True)
+    lon=models.FloatField(null=True, blank=True)
+    connections=models.ManyToManyField('self', blank=True, null=True) #Need to fix this currently all airports connected with each other
 
 class Flight(models.Model):
     Year=models.BigIntegerField(null=True, blank=True)
